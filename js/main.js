@@ -27,17 +27,24 @@ boxMaterial);
 boxMesh.rotation.set(40, 0, 40);
 scene.add(boxMesh);
 
-// Color
-
+// Create spheres: 
+const sphereMeshes = [];
+const sphereGeometry = new THREE.SphereGeometry(0.15, 32, 32);
+const sphereMaterial = new THREE.MeshLambertMaterial({color: 0xf4b7fd});
+for (let i=0; i<4; i++) {
+    sphereMeshes[i] = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphereMeshes[i].position.set(0, 0, 0);
+    scene.add(sphereMeshes[i]);
+}
 
 // Lights
 const lights = [];
 const lightHelpers = [];
 
 const lightValues = [
-    {colour: 0xabb5ff, intensity: 100, dist: 18, x: 1, y: 0, z: 8},
-    {colour: 0xBE61CF, intensity: 100, dist: 15, x: -2, y: 1, z: -10},
-    {colour: 0x00FFFF, intensity: 80, dist: 14, x: 0, y: 10, z: 1},
+    {colour: 0xabb5ff, intensity: 80, dist: 18, x: 1, y: 0, z: 8},
+    {colour: 0xBE61CF, intensity: 80, dist: 15, x: -2, y: 1, z: -10},
+    {colour: 0xFFDA6F, intensity: 80, dist: 14, x: 0, y: 10, z: 1},
     {colour: 0xffc2f6, intensity: 80, dist: 14, x: 0, y: -10, z: -1},
     {colour: 0x16A7F5, intensity: 80, dist: 14, x: 10, y: 3, z: 0},
     {colour: 0xffc2f6, intensity: 80, dist: 14, x: -10, y: -1, z: 0}
@@ -53,20 +60,24 @@ for (let i=0; i<6; i++) {
         lightValues[i]['z']);
     scene.add(lights[i]);
 
-    // New Code: Add light helpers for each light
-    lightHelpers[i] = new THREE.PointLightHelper(lights[i], 0.7);
-    scene.add(lightHelpers[i]);
+    // Add light helpers for each light
+    // lightHelpers[i] = new THREE.PointLightHelper(lights[i], 0.7);
+    // scene.add(lightHelpers[i]);
 }
 
 // Axes Helper
-const axesHelper = new THREE.AxesHelper(5);
-scene.add(axesHelper); // X == red, Y == green, Z == blue
+// const axesHelper = new THREE.AxesHelper(5);
+// scene.add(axesHelper); // X == red, Y == green, Z == blue
 
 //Trackball Controls for Camera 
 const controls = new TrackballControls(camera, renderer.domElement); 
 controls.rotateSpeed = 50;
-controls.dynamicDampingFactor = 0.15;
-controls.keys = [65, 83, 68]; // a, s, d
+controls.dynamicDampingFactor = 0.15;  
+controls.panSpeed = 0.8;
+
+// Trigonometry Constants for Orbital Paths
+let theta = 0;
+const dTheta = 2 * Math.PI / 100;
 
 
 const rendering = function() {
@@ -78,6 +89,37 @@ const rendering = function() {
     
     // Update trackball controls
     controls.update();
+
+    //Increment theta, and update sphere coords based off new value        
+    theta += dTheta;
+
+    // Store trig functions for sphere orbits 
+    const trigs = [
+        {x: Math.cos(theta*1.05), 
+        y: Math.sin(theta*1.05), 
+        z: Math.cos(theta*1.05), 
+        r: 2},
+        {x: Math.cos(theta*0.8), 
+        y: Math.sin(theta*0.8), 
+        z: Math.sin(theta*0.8), 
+        r: 2.25},
+        {x: Math.cos(theta*1.25), 
+        y: Math.cos(theta*1.25), 
+        z: Math.sin(theta*1.25), 
+        r: 2.5},
+        {x: Math.sin(theta*0.6), 
+        y: Math.cos(theta*0.6), 
+        z: Math.sin(theta*0), 
+        r: 2.75}
+    ];
+
+    // Update sphere positions
+    for (let i=0; i<4; i++) {
+        sphereMeshes[i].position.set(
+            trigs[i]['x']*trigs[i]['r'], 
+            trigs[i]['y']*trigs[i]['r'], 
+            trigs[i]['z']*trigs[i]['r']);
+    }
 }
 
 rendering();
