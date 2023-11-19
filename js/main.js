@@ -1,6 +1,6 @@
-import * as THREE from '../node_modules/three';
+import * as THREE from '../node_modules/three/build/three.module.js';
 import { TrackballControls } from '../node_modules/three/examples/jsm/controls/TrackballControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';    
+import { GLTFLoader } from '../node_modules/three/examples/jsm/loaders/GLTFLoader.js';
 
 // Scene
 const scene = new THREE.Scene();
@@ -59,9 +59,11 @@ scene.background = texture;
 
 //Render M
 const loader = new GLTFLoader();
-
+let clickableObject;
 loader.load( 'Mhacks.glb', function ( gltf ) {
-	scene.add( gltf.scene );
+    clickableObject = gltf.scene;
+    clickableObject.name = 'clickableObject';
+    scene.add(clickableObject);
 }, undefined, function ( error ) {
 	console.error( error );
 } );
@@ -73,6 +75,62 @@ loader.load( 'Mhacks.glb', function ( gltf ) {
 // boxMaterial);
 // boxMesh.rotation.set(40, 0, 40);
 // scene.add(boxMesh);
+
+
+
+// Display and initialize score
+let score = 0;
+const scoreElement = document.createElement("div");
+scoreElement.classList.add("myText");
+scoreElement.style.position = 'absolute';
+scoreElement.style.top = '10px';
+scoreElement.style.left = '10px';
+scoreElement.textContent = 'Score = ' + score;
+document.body.appendChild(scoreElement);
+
+// +1 to score
+function updateScore() {
+    score += 1;
+    scoreElement.innerText = 'Score = ' + score;
+}
+
+// raycaster + mouse tracking initializing
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+document.addEventListener('mousedown', onMouseDown, false);
+
+// check object collision with mouse
+function raycast() {
+    raycaster.setFromCamera(mouse, camera);
+
+    var intersects = raycaster.intersectObjects(scene.children.filter(obj => obj.name === 'clickableObject'));
+
+    if (intersects.length > 0) {
+        // Clicked on the clickable object
+        updateScore(); // Example: Increase the score by 10 points
+    }
+}
+
+// check mouse position, and use raycast
+function onMouseDown(event) {
+    // Calculate mouse position in normalized device coordinates
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // Perform raycasting
+    raycast();
+}
+
+
+/*
+addEventListener("click", (event) => {});
+onclick = (event) => {
+    updateScore();
+};
+
+ */
+
+
 
 // Create spheres: 
 const sphereMeshes = [];
