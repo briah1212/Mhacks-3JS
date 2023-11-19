@@ -89,12 +89,12 @@ const lights = [];
 const lightHelpers = [];
 
 const lightValues = [
-    {colour: 0xabb5ff, intensity: 80, dist: 18, x: 1, y: 0, z: 8},
-    {colour: 0xBE61CF, intensity: 80, dist: 15, x: -2, y: 1, z: -10},
-    {colour: 0xFFDA6F, intensity: 80, dist: 14, x: 0, y: 10, z: 1},
-    {colour: 0xffc2f6, intensity: 80, dist: 14, x: 0, y: -10, z: -1},
-    {colour: 0x16A7F5, intensity: 80, dist: 14, x: 10, y: 3, z: 0},
-    {colour: 0xffc2f6, intensity: 80, dist: 14, x: -10, y: -1, z: 0}
+    {colour: 0xF5D2FF, intensity: 150, dist: 30, x: 1, y: 0, z: 6},
+    {colour: 0xB1C5F8, intensity: 150, dist: 30, x: -2, y: 1, z: -7},
+    {colour: 0xF5D2FF, intensity: 150, dist: 25, x: 0, y: 6, z: 1},
+    {colour: 0xfB1C5F8, intensity: 150, dist: 25, x: 0, y: -6, z: -1},
+    {colour: 0xF5D2FF, intensity: 150, dist: 25, x: 6, y: 3, z: 0},
+    {colour: 0xB1C5F8, intensity: 150, dist: 25, x: -7, y: -1, z: 0}
 ];
 for (let i=0; i<6; i++) {
     lights[i] = new THREE.PointLight(
