@@ -60,7 +60,8 @@ scene.background = texture;
 //Render M
 const loader = new GLTFLoader();
 let clickableObject;
-loader.load( 'Mhacks.glb', function ( gltf ) {
+loader.load( 'Assets/Mhacks.glb', function ( gltf ) {
+    gltf.scene.position.y = 0.5;
     clickableObject = gltf.scene;
     clickableObject.name = 'clickableObject';
     scene.add(clickableObject);
@@ -202,7 +203,7 @@ const rendering = function() {
     // Store trig functions for sphere orbits 
     const trigs = [
         {x: Math.cos(theta*1.05), 
-        y: Math.sin(theta*1.05), 
+        y: Math.sin(theta*1.05),    
         z: Math.cos(theta*1.05), 
         r: 2},
         {x: Math.cos(theta*0.8), 
