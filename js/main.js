@@ -1,5 +1,6 @@
 import * as THREE from '../node_modules/three';
 import { TrackballControls } from '../node_modules/three/examples/jsm/controls/TrackballControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';    
 
 // Scene
 const scene = new THREE.Scene();
@@ -19,13 +20,26 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 })
 
-// Create Box
-const boxGeometry = new THREE.BoxGeometry(2, 2, 2);
-const boxMaterial = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
-const boxMesh = new THREE.Mesh(boxGeometry, 
-boxMaterial);
-boxMesh.rotation.set(40, 0, 40);
-scene.add(boxMesh);
+//Render M
+const loader = new GLTFLoader();
+
+loader.load( 'Mgagged.glb', function ( gltf ) {
+
+	scene.add( gltf.scene );
+
+}, undefined, function ( error ) {
+
+	console.error( error );
+
+} );
+
+// // Create Box
+// const boxGeometry = new THREE.BoxGeometry(2, 2, 2);
+// const boxMaterial = new THREE.MeshLambertMaterial({color: 0xFFFFFF});
+// const boxMesh = new THREE.Mesh(boxGeometry, 
+// boxMaterial);
+// boxMesh.rotation.set(40, 0, 40);
+// scene.add(boxMesh);
 
 // Create spheres: 
 const sphereMeshes = [];
