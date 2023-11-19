@@ -20,7 +20,6 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 })
 
-
 //////////////////////////
 // Color
     /*
