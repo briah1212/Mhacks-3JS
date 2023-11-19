@@ -23,7 +23,7 @@ window.addEventListener('resize', () => {
 //Render M
 const loader = new GLTFLoader();
 
-loader.load( 'Mgagged.glb', function ( gltf ) {
+loader.load( 'Mhacks.glb', function ( gltf ) {
 
 	scene.add( gltf.scene );
 
@@ -96,9 +96,10 @@ const dTheta = 2 * Math.PI / 100;
 
 const rendering = function() {
     requestAnimationFrame(rendering);
-    // Constantly rotate box
-    scene.rotation.z -= 0.005;
-    scene.rotation.x -= 0.01;
+    // // Constantly rotate box
+    // scene.rotation.x -= 0.02;
+    // scene.rotation.z -= 0.02;
+    scene.rotation.y -= 0.02;
     renderer.render(scene, camera);
     
     // Update trackball controls
