@@ -77,6 +77,23 @@ loader.load( 'Mhacks.glb', function ( gltf ) {
 // scene.add(boxMesh);
 
 
+// Add ripple effect
+function applyCursorRippleEffect(e) {
+    const ripple = document.createElement("div");
+
+    ripple.className = "ripple";
+    document.body.appendChild(ripple);
+
+    ripple.style.left = `${e.clientX}px`;
+    ripple.style.top = `${e.clientY}px`;
+    ripple.style.animation = `ripple-effect .4s  linear`;
+    ripple.onanimationend = () => {
+        document.body.removeChild(ripple);
+
+    }
+
+}
+
 
 // Display and initialize score
 let score = 0;
@@ -107,6 +124,7 @@ function raycast() {
 
     if (intersects.length > 0) {
         // Clicked on the clickable object
+        applyCursorRippleEffect(event);
         updateScore(); // Example: Increase the score by 10 points
     }
 }
