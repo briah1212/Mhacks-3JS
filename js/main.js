@@ -20,6 +20,43 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 })
 
+
+//////////////////////////
+// Color
+    /*
+scene.background = new THREE.Color(params.color)
+     */
+    // Create gradient background
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+// Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+// Define gradient
+    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0.2, '#d3dbeb');
+    gradient.addColorStop(0.3, '#d0bdc0');
+    gradient.addColorStop(0.4, '#f1b1a3');
+    gradient.addColorStop(0.5,'#9aa6d3')
+    gradient.addColorStop(0.6, '#f39086');
+    gradient.addColorStop(0.7, '#c68fb6');
+    gradient.addColorStop(0.8, '#f8ded9');
+    gradient.addColorStop(0.9, '#dcad9f');
+    gradient.addColorStop(1.0, '#b1bbd7');
+// Fill the canvas with the gradient
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+// Create a texture from the canvas
+    const texture = new THREE.CanvasTexture(canvas);
+
+// Apply texture to the scene background
+scene.background = texture;
+
+//////////////////////////////////////
+
 //Render M
 const loader = new GLTFLoader();
 
