@@ -238,6 +238,7 @@ const rendering = function() {
         r: 2.75}
     ];
 
+
     // Update sphere positions
     for (let i=0; i<4; i++) {
         sphereMeshes[i].position.set(
