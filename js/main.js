@@ -34,41 +34,38 @@ window.onload = function () {
     scene.add(boxMesh);
 
 
-// Adding Water
-    // Create a plane geometry for the water
-    const width = 10;
-    const height = 10;
-    const waterGeometry = new THREE.PlaneGeometry(width, height);
-
-// Create the water using the geometry and material
-    const water = new Water(waterGeometry, {
-        color: '#a0a0a0',
-        scale: 1,
-        flowDirection: new THREE.Vector2(1, 0),
-        textureWidth: 1024,
-        textureHeight: 1024
-    });
-
-// Rotate the geometry 90 degrees to make it lie flat
-    water.rotation.x = -Math.PI / 2;
-
-// Position the water at the bottom of the scene
-    water.position.y = -2; // Adjust this value based on your scene's dimensions
-
-    scene.add(water);
-
-    const groundGeometry = new THREE.PlaneGeometry(100, 100);
-    const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x409060 });
-    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-    ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -2; // Adjust this value based on your scene's dimensions
-    scene.add(ground);
-
-
-
 // Color
+    /*
+scene.background = new THREE.Color(params.color)
+     */
+    // Create gradient background
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
 
+// Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
+// Define gradient
+    const gradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0.2, '#d3dbeb');
+    gradient.addColorStop(0.3, '#d0bdc0');
+    gradient.addColorStop(0.4, '#f1b1a3');
+    gradient.addColorStop(0.5,'#9aa6d3')
+    gradient.addColorStop(0.6, '#f39086');
+    gradient.addColorStop(0.7, '#c68fb6');
+    gradient.addColorStop(0.8, '#f8ded9');
+    gradient.addColorStop(0.9, '#dcad9f');
+    gradient.addColorStop(1.0, '#b1bbd7');
+// Fill the canvas with the gradient
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+// Create a texture from the canvas
+    const texture = new THREE.CanvasTexture(canvas);
+
+// Apply the texture to the background
+    scene.background = texture;
 // Lights
     const lights = [];
     const lightHelpers = [];
