@@ -24,13 +24,9 @@ window.addEventListener('resize', () => {
 const loader = new GLTFLoader();
 
 loader.load( 'Mhacks.glb', function ( gltf ) {
-
 	scene.add( gltf.scene );
-
 }, undefined, function ( error ) {
-
 	console.error( error );
-
 } );
 
 // // Create Box
