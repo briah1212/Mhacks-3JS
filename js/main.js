@@ -110,9 +110,6 @@ window.onload = function () {
 
     const rendering = function () {
         requestAnimationFrame(rendering);
-        // Constantly rotate box
-        scene.rotation.z -= 0.005;
-        scene.rotation.x -= 0.01;
         renderer.render(scene, camera);
 
         // Update trackball controls
