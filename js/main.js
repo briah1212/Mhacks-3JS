@@ -1,5 +1,5 @@
 import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.module.js';
-import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls.js';
+import { TrackballControls } from 'https://threejs.org/examples/jsm/controls/TrackballControls.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/examples/jsm/loaders/GLTFLoader.js';
 
 // Scene
